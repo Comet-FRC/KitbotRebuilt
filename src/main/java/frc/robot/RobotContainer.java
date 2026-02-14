@@ -18,7 +18,9 @@ public class RobotContainer {
   }
 
   private void configureBindings() {
-    drivetrain.setDefaultCommand(new Drive(drivetrain, controller.getLeftY(), controller.getRightX()));
+    drivetrain.setDefaultCommand(new Drive(drivetrain,
+        () -> -controller.getLeftY(),
+        () -> -controller.getRightX()));
   }
 
   public Command getAutonomousCommand() {
