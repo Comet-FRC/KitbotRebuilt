@@ -1,5 +1,6 @@
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.FuelSystem;
 
@@ -15,7 +16,8 @@ public class Launch extends Command {
 
     @Override
     public void initialize() {
-        fuelSystem.setFeeder(LAUNCH_FEEDER_VOLTAGE);
+        fuelSystem.setIntakeLauncher(SmartDashboard.getNumber("Launch Launcher Voltage", LAUNCH_LAUNCHER_VOLTAGE));
+        fuelSystem.setFeeder(SmartDashboard.getNumber("Eject Feeder Voltage", EJECT_FEEDER_VOLTAGE));
     }
 
     @Override

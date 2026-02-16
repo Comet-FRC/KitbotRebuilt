@@ -5,6 +5,7 @@ import com.ctre.phoenix.motorcontrol.TalonSRXControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.TalonSRXConfiguration;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 import static frc.robot.Constants.FuelConstants.*;
@@ -31,6 +32,13 @@ public class FuelSystem extends SubsystemBase {
         intakeLauncher.configVoltageCompSaturation(VOLTAGE_COMPENSATION);
         intakeLauncher.enableVoltageCompensation(true);
         intakeLauncher.setNeutralMode(NeutralMode.Brake);
+
+        SmartDashboard.putNumber("Intake Intake Voltage", INTAKE_INTAKE_VOLTAGE);
+        SmartDashboard.putNumber("Intake Feeder Voltage", INTAKE_FEEDER_VOLTAGE);
+        SmartDashboard.putNumber("Launch Launcher Voltage", LAUNCH_LAUNCHER_VOLTAGE);
+        SmartDashboard.putNumber("Rev Launcher Timeout", REV_LAUNCHER_TIMEOUT);
+        SmartDashboard.putNumber("Eject Intake Voltage", EJECT_INTAKE_VOLTAGE);
+        SmartDashboard.putNumber("Eject Feeder Voltage", EJECT_FEEDER_VOLTAGE);
     }
 
     public void setIntakeLauncher(double speed) {
@@ -39,5 +47,10 @@ public class FuelSystem extends SubsystemBase {
 
     public void setFeeder(double speed) {
         feeder.set(TalonSRXControlMode.PercentOutput, speed / VOLTAGE_COMPENSATION);
+    }
+
+    public void stop() {
+        setIntakeLauncher(0);
+        setFeeder(0);
     }
 }

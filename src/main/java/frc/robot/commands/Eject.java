@@ -1,5 +1,6 @@
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.FuelSystem;
 
@@ -15,8 +16,8 @@ public class Eject extends Command {
 
     @Override
     public void initialize() {
-        fuelSystem.setFeeder(EJECT_FEEDER_VOLTAGE);
-        fuelSystem.setIntakeLauncher(EJECT_INTAKE_VOLTAGE);
+        fuelSystem.setFeeder(SmartDashboard.getNumber("Eject Feeder Voltage", EJECT_FEEDER_VOLTAGE));
+        fuelSystem.setIntakeLauncher(SmartDashboard.getNumber("Eject Intake Voltage", EJECT_INTAKE_VOLTAGE));
     }
 
     @Override

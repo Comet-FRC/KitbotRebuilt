@@ -1,5 +1,6 @@
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.FuelSystem;
 
@@ -15,8 +16,8 @@ public class Intake extends Command {
 
     @Override
     public void initialize() {
-        fuelSystem.setFeeder(INTAKE_FEEDER_VOLTAGE);
-        fuelSystem.setIntakeLauncher(INTAKE_INTAKE_VOLTAGE);
+        fuelSystem.setFeeder(SmartDashboard.getNumber("Intake Feeder Voltage", INTAKE_FEEDER_VOLTAGE));
+        fuelSystem.setIntakeLauncher(SmartDashboard.getNumber("Intake Intake Voltage", INTAKE_INTAKE_VOLTAGE));
     }
 
     @Override
