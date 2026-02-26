@@ -10,6 +10,14 @@ public class Constants {
                 public static final int CURRENT_LIMIT = 60;
                 public static final int VOLTAGE_COMPENSATION = 12;
                 public static final int TIMEOUT = 250;
+
+                public static final double MASS = 31.2;
+                public static final double MOI = 2.328;
+                public static final double TRACK_WIDTH = 0.546;
+                public static final double GEAR_RATIO = 8.46;
+                public static final double WHEEL_RADIUS = 0.076;
+                public static final double ENCODER_POSITION_FACTOR = (2 * Math.PI * WHEEL_RADIUS) / GEAR_RATIO;
+                public static final double ENCODER_VELOCITY_FACTOR = ENCODER_POSITION_FACTOR / 60.0;
         }
 
         public class FuelConstants {
