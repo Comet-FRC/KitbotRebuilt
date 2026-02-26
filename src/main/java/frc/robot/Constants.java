@@ -16,6 +16,7 @@ public class Constants {
                 public static final double TRACK_WIDTH = 0.546;
                 public static final double GEAR_RATIO = 8.46;
                 public static final double WHEEL_RADIUS = 0.076;
+                public static final double MAX_VELOCITY = 4.0;
                 public static final double ENCODER_POSITION_FACTOR = (2 * Math.PI * WHEEL_RADIUS) / GEAR_RATIO;
                 public static final double ENCODER_VELOCITY_FACTOR = ENCODER_POSITION_FACTOR / 60.0;
         }

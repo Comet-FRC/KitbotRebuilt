@@ -117,8 +117,13 @@ public class Drivetrain extends SubsystemBase {
 
     public void driveRobotRelative(ChassisSpeeds speeds) {
         var wheelSpeeds = kinematics.toWheelSpeeds(speeds);
-        frontLeft.set(wheelSpeeds.leftMetersPerSecond);
-        frontRight.set(wheelSpeeds.rightMetersPerSecond);
+        wheelSpeeds.desaturate(MAX_VELOCITY);
+        frontLeft.set(wheelSpeeds.leftMetersPerSecond / MAX_VELOCITY);
+        frontRight.set(wheelSpeeds.rightMetersPerSecond / MAX_VELOCITY);
+    }
+
+    public void resetGyro() {
+        gyro.reset();
     }
 
     @Override
@@ -128,6 +133,6 @@ public class Drivetrain extends SubsystemBase {
             leftEncoder.getPosition(),
             rightEncoder.getPosition());
 
-        System.out.println("Gyro: " + gyro.getAngle());
+        // System.out.println("Gyro: " + gyro.getAngle());
     }
 }

@@ -38,7 +38,8 @@ public class RobotContainer {
     controller.b().whileTrue(new Intake(fuelSystem));
     controller.y().whileTrue(new LaunchSequence(fuelSystem));
     controller.a().whileTrue(new Eject(fuelSystem));
-    controller.x().whileTrue(new AdjustLauncherVoltage(12));
+    controller.x().whileTrue(drivetrain.run(() -> drivetrain.resetGyro()));
+
     controller.up().whileTrue(new AdjustLauncherVoltage(0.05));
     controller.down().whileTrue(new AdjustLauncherVoltage(-0.05));
   }
