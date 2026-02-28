@@ -106,7 +106,7 @@ public class Drivetrain extends SubsystemBase {
             leftEncoder.getPosition(),
             rightEncoder.getPosition());
 
-        System.out.println("Gyro: " + gyro.getRotation2d());
+        // System.out.println("Gyro: " + gyro.getRotation2d());
     }
 
     public Pose2d getPose() {

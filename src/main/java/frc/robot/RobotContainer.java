@@ -8,19 +8,23 @@ import frc.robot.commands.driveCommands.Drive;
 import frc.robot.commands.fuelCommands.Eject;
 import frc.robot.commands.fuelCommands.Intake;
 import frc.robot.commands.fuelCommands.LaunchSequence;
+import frc.robot.controllers.CometLogitechController;
+import frc.robot.controllers.CometPS4Controller;
 import frc.robot.controllers.CometXboxController;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.FuelSystem;
 
+@SuppressWarnings("unused")
+
 public class RobotContainer {
   private Drivetrain drivetrain;
   private FuelSystem fuelSystem;
-  private CometXboxController controller;
+  private CometLogitechController controller;
 
   public RobotContainer() {
     drivetrain = new Drivetrain();
     fuelSystem = new FuelSystem();
-    controller = new CometXboxController(0);
+    controller = new CometLogitechController(0);
 
     NamedCommands.registerCommand("Launch", new LaunchSequence(fuelSystem));
 
