@@ -1,7 +1,9 @@
 package frc.robot;
 
+import com.pathplanner.lib.auto.NamedCommands;
+import com.pathplanner.lib.commands.PathPlannerAuto;
+
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.Commands;
 import frc.robot.commands.driveCommands.Drive;
 import frc.robot.commands.fuelCommands.AdjustLauncherVoltage;
 import frc.robot.commands.fuelCommands.Eject;
@@ -21,6 +23,8 @@ public class RobotContainer {
     fuelSystem = new FuelSystem();
     controller = new CometXboxController(0);
 
+    NamedCommands.registerCommand("Launch", new LaunchSequence(fuelSystem));
+
     configureBindings();
   }
 
@@ -34,12 +38,13 @@ public class RobotContainer {
     controller.b().whileTrue(new Intake(fuelSystem));
     controller.y().whileTrue(new LaunchSequence(fuelSystem));
     controller.a().whileTrue(new Eject(fuelSystem));
-    controller.x().whileTrue(new AdjustLauncherVoltage(12));
+    controller.x().whileTrue(drivetrain.run(() -> drivetrain.resetGyro()));
+
     controller.up().whileTrue(new AdjustLauncherVoltage(0.05));
     controller.down().whileTrue(new AdjustLauncherVoltage(-0.05));
   }
 
   public Command getAutonomousCommand() {
-    return Commands.print("No autonomous command configured");
+    return new PathPlannerAuto("Test Auto");
   }
 }

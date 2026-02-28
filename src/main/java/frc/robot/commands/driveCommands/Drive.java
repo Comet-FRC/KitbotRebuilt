@@ -21,7 +21,7 @@ public class Drive extends Command {
 
     @Override
     public void execute() {
-        drivetrain.drive(speed.getAsDouble(), rotation.getAsDouble());
+        drivetrain.drive(speed.getAsDouble() / 2, rotation.getAsDouble() / 2);
     }
 
     @Override
