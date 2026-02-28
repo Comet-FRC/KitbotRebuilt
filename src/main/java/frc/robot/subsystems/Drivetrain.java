@@ -2,6 +2,7 @@ package frc.robot.subsystems;
 
 import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.SparkRelativeEncoder;
+import com.ctre.phoenix6.hardware.Pigeon2;
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.config.RobotConfig;
 import com.pathplanner.lib.controllers.PPLTVController;
@@ -16,7 +17,6 @@ import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.DifferentialDriveKinematics;
 import edu.wpi.first.math.kinematics.DifferentialDriveWheelSpeeds;
-import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -26,7 +26,7 @@ import static frc.robot.Constants.DrivetrainConstants.*;
 public class Drivetrain extends SubsystemBase {
     private SparkMax frontLeft, frontRight, backLeft, backRight;
     private SparkRelativeEncoder leftEncoder, rightEncoder;
-    private ADXRS450_Gyro gyro;
+    private Pigeon2 gyro;
 
     private DifferentialDrive drive;
     private DifferentialDriveKinematics kinematics;
@@ -56,7 +56,7 @@ public class Drivetrain extends SubsystemBase {
         leftEncoder = (SparkRelativeEncoder)frontLeft.getEncoder();
         rightEncoder = (SparkRelativeEncoder)frontRight.getEncoder();
 
-        gyro = new ADXRS450_Gyro();
+        gyro = new Pigeon2(GYRO_ID);
 
         drive = new DifferentialDrive(frontLeft, frontRight);
 
@@ -81,7 +81,7 @@ public class Drivetrain extends SubsystemBase {
             this::resetPose,
             this::getRobotRelativeSpeeds,
             (speeds, feedforwards) -> driveRobotRelative(speeds),
-            new PPLTVController(0.2, 4.0),
+            new PPLTVController(0.2, MAX_VELOCITY),
             config,
             () -> {var alliance = DriverStation.getAlliance();
               if (alliance.isPresent()) {
@@ -97,6 +97,16 @@ public class Drivetrain extends SubsystemBase {
 
     public void drive(double speed, double rotation) {
         drive.arcadeDrive(speed, rotation);
+    }
+ 
+    @Override
+    public void periodic() {
+        poseEstimator.update(
+            gyro.getRotation2d(),
+            leftEncoder.getPosition(),
+            rightEncoder.getPosition());
+
+        System.out.println("Gyro: " + gyro.getRotation2d());
     }
 
     public Pose2d getPose() {
@@ -124,15 +134,5 @@ public class Drivetrain extends SubsystemBase {
 
     public void resetGyro() {
         gyro.reset();
-    }
-
-    @Override
-    public void periodic() {
-        poseEstimator.update(
-            gyro.getRotation2d(),
-            leftEncoder.getPosition(),
-            rightEncoder.getPosition());
-
-        // System.out.println("Gyro: " + gyro.getAngle());
     }
 }

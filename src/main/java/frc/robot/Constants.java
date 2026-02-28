@@ -7,6 +7,8 @@ public class Constants {
                 public static final int BACK_LEFT_ID = 4;
                 public static final int BACK_RIGHT_ID = 3;
 
+                public static final int GYRO_ID = 21;
+
                 public static final int CURRENT_LIMIT = 60;
                 public static final int VOLTAGE_COMPENSATION = 12;
                 public static final int TIMEOUT = 250;
