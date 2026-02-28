@@ -5,7 +5,6 @@ import com.pathplanner.lib.commands.PathPlannerAuto;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.commands.driveCommands.Drive;
-import frc.robot.commands.fuelCommands.AdjustLauncherVoltage;
 import frc.robot.commands.fuelCommands.Eject;
 import frc.robot.commands.fuelCommands.Intake;
 import frc.robot.commands.fuelCommands.LaunchSequence;
@@ -40,8 +39,8 @@ public class RobotContainer {
     controller.a().whileTrue(new Eject(fuelSystem));
     controller.x().whileTrue(drivetrain.run(() -> drivetrain.resetGyro()));
 
-    controller.up().whileTrue(new AdjustLauncherVoltage(0.05));
-    controller.down().whileTrue(new AdjustLauncherVoltage(-0.05));
+    controller.up().whileTrue(fuelSystem.run(() -> fuelSystem.adjustLauncherVoltage(0.05)));
+    controller.down().whileTrue(fuelSystem.run(() -> fuelSystem.adjustLauncherVoltage(-0.05)));
   }
 
   public Command getAutonomousCommand() {

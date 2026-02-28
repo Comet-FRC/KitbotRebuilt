@@ -53,4 +53,14 @@ public class FuelSystem extends SubsystemBase {
         setIntakeLauncher(0);
         setFeeder(0);
     }
+
+    public void adjustLauncherVoltage(double voltage) {
+        SmartDashboard.putNumber("Launch Launcher Voltage", SmartDashboard.getNumber("Launch Launcher Voltage", LAUNCH_LAUNCHER_VOLTAGE) + voltage);
+        
+        if(SmartDashboard.getNumber("Launch Launcher Voltage", LAUNCH_LAUNCHER_VOLTAGE) > 12) {
+            SmartDashboard.putNumber("Launch Launcher Voltage", 12);
+        } else if(SmartDashboard.getNumber("Launch Launcher Voltage", LAUNCH_LAUNCHER_VOLTAGE) < 6) {
+            SmartDashboard.putNumber("Launch Launcher Voltage", 6);
+        }
+    }
 }
